@@ -2,6 +2,9 @@ package com.yi.server.wjyserver.command;
 
 import com.yi.server.wjyserver.logger.WJYServerLogger;
 
+/**
+ * @author wujingyi
+ */
 public class LogoCommand extends Command {
 
     @Override

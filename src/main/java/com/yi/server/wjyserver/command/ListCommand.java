@@ -5,6 +5,9 @@ import com.yi.server.wjyserver.logger.WJYServerLogger;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author wujingyi
+ */
 public class ListCommand extends Command {
     private List<Command> commandList;
 

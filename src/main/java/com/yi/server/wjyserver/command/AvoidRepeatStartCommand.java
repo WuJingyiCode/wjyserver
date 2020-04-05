@@ -3,6 +3,9 @@ package com.yi.server.wjyserver.command;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author wujingyi
+ */
 public class AvoidRepeatStartCommand extends Command {
 
     @Override

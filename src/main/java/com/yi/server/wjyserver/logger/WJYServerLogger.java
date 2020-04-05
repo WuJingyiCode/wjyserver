@@ -4,6 +4,9 @@ package com.yi.server.wjyserver.logger;
 import com.yi.server.wjyserver.command.Command;
 import org.apache.log4j.Logger;
 
+/**
+ * @author wujingyi
+ */
 public class WJYServerLogger extends Command {
     public static final Logger LOGGER = Logger.getLogger(WJYServerLogger.class);
 

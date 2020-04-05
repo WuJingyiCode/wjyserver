@@ -7,7 +7,7 @@ public class ListCommandTest {
     public void testListCommand() {
         ListCommand listCommand = new ListCommand();
         listCommand.addCommand(new LogoCommand());
-        listCommand.addCommand(new AvoidRepeateStartCommand());
+        listCommand.addCommand(new AvoidRepeatStartCommand());
         try {
             listCommand.execute();
             throw new RuntimeException("Test rollback");
