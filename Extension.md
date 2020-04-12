@@ -1,1 +1,0 @@
-1. XtRequestListener.sessionMustBeValidated作用？  
