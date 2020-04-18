@@ -4,7 +4,7 @@ import com.yi.server.wjyserver.annotation.RequestListener;
 import message.ProtobufMessage;
 
 /**
- * @author Cakutau
+ * @author wujingyi
  */
 public class DemoExtension extends Extension {
     private static final String CMD_TEST = "";
