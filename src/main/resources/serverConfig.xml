@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <KeyValueBatch>
+        <KeyValue key="test1" value="testa"/>
+        <KeyValue key="test2" value="testb"/>
+    </KeyValueBatch>
+    <ExtensionFactory>
+        <Extension id="1" class="com.yi.server.wjyserver.extension.TestExtension"/>
+        <Extension id="2" class="com.yi.server.wjyserver.extension.DemoExtension"/>
+    </ExtensionFactory>
+</root>

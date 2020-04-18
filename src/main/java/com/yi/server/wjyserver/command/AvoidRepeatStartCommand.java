@@ -1,5 +1,8 @@
 package com.yi.server.wjyserver.command;
 
+import com.yi.server.wjyserver.WJYServer;
+import com.yi.server.wjyserver.logger.WJYServerLogger;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -10,11 +13,11 @@ public class AvoidRepeatStartCommand extends Command {
 
     @Override
     protected void executeOnce() {
-        Logger.getAnonymousLogger().log(Level.INFO, "Hello. Avoid!");
+        WJYServerLogger.LOGGER.info("<AvoidRepeatStartCommand> executeOnce");
     }
 
     @Override
     protected void rollbackOnce() {
-        Logger.getAnonymousLogger().log(Level.INFO, "Goodbye. Avoid!");
+        WJYServerLogger.LOGGER.info("<AvoidRepeatStartCommand> rollbackOnce");
     }
 }

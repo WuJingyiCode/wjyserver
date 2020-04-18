@@ -45,10 +45,11 @@ public class WJYServerConfig extends Command {
         Element configRoot = XmlHelper.loadXmlConfig(serverConfigName);
         Element workspaceConfigRoot = XmlHelper.loadXmlConfig(serverWorkspaceConfigName);
         Element mergeRoot = XmlHelper.mergeXmlRoot(configRoot, workspaceConfigRoot);
-        List<Element> eleExtensionConfigList = XmlHelper.getElementsByTagName(mergeRoot, "ExtensionConfig");
-        List<ExtensionConfig> extensionConfigList = new ArrayList<>(eleExtensionConfigList.size());
-        for (Element eleExtensionConfig: eleExtensionConfigList) {
-            extensionConfigList.add(new ExtensionConfig(eleExtensionConfig));
+        Element eleExtensionConfig = XmlHelper.getElementByTagName(mergeRoot, "ExtensionFactory");
+        List<Element> eleExtensionList = XmlHelper.getElementsByTagName(eleExtensionConfig, "Extension");
+        List<ExtensionConfig> extensionConfigList = new ArrayList<>(eleExtensionList.size());
+        for (Element eleExtension: eleExtensionList) {
+            extensionConfigList.add(new ExtensionConfig(eleExtension));
         }
         this.extensionConfigList = extensionConfigList;
     }
