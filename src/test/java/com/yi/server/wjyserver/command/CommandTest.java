@@ -9,28 +9,8 @@ public class CommandTest {
     public void testExecuteAndRollback() {
         Command testCommand = new Command() {
             @Override
-            protected void beforeExecuteOnce() {
-                WJYServerLogger.LOGGER.info("beforeExecuteOnce");
-            }
-
-            @Override
-            protected void afterExecuteOnce() {
-                WJYServerLogger.LOGGER.info("afterExecuteOnce");
-            }
-
-            @Override
             protected void executeOnce() {
                 WJYServerLogger.LOGGER.info("execute");
-            }
-
-            @Override
-            protected void beforeRollbackOnce() {
-                WJYServerLogger.LOGGER.info("beforeRollbackOnce");
-            }
-
-            @Override
-            protected void afterRollbackOnce() {
-                WJYServerLogger.LOGGER.info("afterRollbackOnce");
             }
 
             @Override

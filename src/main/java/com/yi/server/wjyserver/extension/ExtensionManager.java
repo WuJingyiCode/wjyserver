@@ -1,5 +1,6 @@
 package com.yi.server.wjyserver.extension;
 
+import com.yi.server.wjyserver.RequestType;
 import com.yi.server.wjyserver.WJYServer;
 import com.yi.server.wjyserver.command.ListCommand;
 import com.yi.server.wjyserver.command.WJYServerConfig;
@@ -7,7 +8,9 @@ import com.yi.server.wjyserver.config.ExtensionConfig;
 import com.yi.server.wjyserver.logger.WJYServerLogger;
 
 import java.lang.reflect.Constructor;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -20,13 +23,13 @@ import java.util.List;
 public class ExtensionManager extends ListCommand {
 
     private WJYServer server;
+    private EnumMap<RequestType, RequestDispatcher> requestDispatcherMap = new EnumMap<>(RequestType.class);
 
     public ExtensionManager(WJYServer server) {
         this.server = server;
     }
 
     /**
-     * todo 初始化subExtension
      * 初始化所有的Extension
      */
     @Override
@@ -36,6 +39,12 @@ public class ExtensionManager extends ListCommand {
         for (ExtensionConfig extensionConfig: extensionConfigList) {
             addCommand(createExtension(extensionConfig));
         }
+    }
+
+    public void addListeners(Extension extension) {
+        requestDispatcherMap.forEach((type, dispatcher) -> {
+            dispatcher.addListeners(extension);
+        });
     }
 
     private Extension createExtension(ExtensionConfig extensionConfig) {

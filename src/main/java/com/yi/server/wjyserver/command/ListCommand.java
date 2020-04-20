@@ -15,22 +15,18 @@ public class ListCommand extends Command {
         this.commandList = new ArrayList<>();
     }
 
-    @Override
     protected void beforeExecuteOnce() {
         WJYServerLogger.LOGGER.info("<ListCommand> Start execute ListCommand.");
     }
 
-    @Override
     protected void afterExecuteOnce() {
         WJYServerLogger.LOGGER.info("<ListCommand> Execute ListCommand finished.");
     }
 
-    @Override
     protected void beforeRollbackOnce() {
         WJYServerLogger.LOGGER.info("<ListCommand> Start rollback ListCommand.");
     }
 
-    @Override
     protected void afterRollbackOnce() {
         WJYServerLogger.LOGGER.info("<ListCommand> Rollback ListCommand finished.");
     }

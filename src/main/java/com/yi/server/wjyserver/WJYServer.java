@@ -38,4 +38,8 @@ public class WJYServer {
     public WJYServerConfig getServerConfig() {
         return serverConfig;
     }
+
+    public ExtensionManager getExtensionManager() {
+        return extensionManager;
+    }
 }

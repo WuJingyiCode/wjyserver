@@ -16,9 +16,7 @@ public abstract class Command {
 
     public final void execute() {
         if (hadExecuted.compareAndSet(false, true)) {
-            beforeExecuteOnce();
             executeOnce();
-            afterExecuteOnce();
         }
     }
 
@@ -28,31 +26,13 @@ public abstract class Command {
             return;
         }
         if (hadRollback.compareAndSet(false, true)) {
-            beforeRollbackOnce();
             rollbackOnce();
-            afterRollbackOnce();
             return;
         }
         WJYServerLogger.LOGGER.warn("<Command> Rollback failed. The command had been rollback.");
     }
 
-    protected void beforeExecuteOnce() {
-
-    }
-
-    protected void afterExecuteOnce() {
-
-    }
-
     protected abstract void executeOnce();
-
-    protected void beforeRollbackOnce() {
-
-    }
-
-    protected void afterRollbackOnce() {
-
-    }
 
     protected abstract void rollbackOnce();
 }
