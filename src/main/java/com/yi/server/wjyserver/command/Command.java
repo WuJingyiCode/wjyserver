@@ -2,6 +2,7 @@ package com.yi.server.wjyserver.command;
 
 import com.yi.server.wjyserver.logger.WJYServerLogger;
 
+import java.nio.channels.ClosedChannelException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -14,7 +15,7 @@ public abstract class Command {
     /** 是否已经回滚 */
     private AtomicBoolean hadRollback = new AtomicBoolean(false);
 
-    public final void execute() {
+    public final void execute() throws Throwable {
         if (hadExecuted.compareAndSet(false, true)) {
             executeOnce();
         }
@@ -32,7 +33,7 @@ public abstract class Command {
         WJYServerLogger.LOGGER.warn("<Command> Rollback failed. The command had been rollback.");
     }
 
-    protected abstract void executeOnce();
+    protected abstract void executeOnce() throws Throwable;
 
     protected abstract void rollbackOnce();
 }

@@ -127,3 +127,5 @@
 [2020-04-20 20:00:16,348][INFO ][main] <ListCommand> Execute ListCommand finished. (ListCommand.java:25)
 [2020-04-20 21:15:22,279][INFO ][main] Hello. WJYServer! (LogoCommand.java:12)
 [2020-04-20 21:15:22,298][INFO ][main] <AvoidRepeatStartCommand> executeOnce (AvoidRepeatStartCommand.java:16)
+[2020-04-22 21:59:45,789][INFO ][main] Hello. WJYServer! (LogoCommand.java:12)
+[2020-04-22 21:59:45,802][INFO ][main] <AvoidRepeatStartCommand> executeOnce (AvoidRepeatStartCommand.java:16)
