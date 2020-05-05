@@ -20,42 +20,54 @@ public class TCPChannelSelector extends Command {
     private SessionManager sessionManager;
     /** todo 如何判定线程状态 */
     private boolean isRunning;
+    private Thread selectorThread;
 
     public TCPChannelSelector(WJYServer server) throws IOException {
         this.server = server;
         sessionManager = server.getSessionManager();
         selector = Selector.open();
+        selectorThread = new Thread(new SelectorRunnable(), "Thread-ChannelSelector");
     }
 
     @Override
     protected void executeOnce() throws Throwable {
-        //todo 应该另起线程做这件事，否则会阻塞在这里
-        while (isRunning) {
-            List<SocketChannel> socketChannelList = sessionManager.getNewSocketChannelListAndClear();
-            if (!socketChannelList.isEmpty()) {
-                for (SocketChannel channel: socketChannelList) {
-                    channel.register(selector, SelectionKey.OP_READ);
-                }
-            }
-            int count = selector.select();
-            if (count > 0) {
-                Set<SelectionKey> selectionKeys = selector.selectedKeys();
-                Iterator<SelectionKey> iterator = selectionKeys.iterator();
-                while (iterator.hasNext()) {
-                    SelectionKey selectionKey = iterator.next();
-                    SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
-                    // todo specify ByteBuffer size.
-                    ByteBuffer byteBuffer = ByteBuffer.allocate(24);
-                    // read byte from channel into buffer.
-                    socketChannel.read(byteBuffer);
-                    // todo 处理拆包，粘包问题
-                }
-            }
-        }
+        selectorThread.start();
     }
 
     @Override
     protected void rollbackOnce() {
 
+    }
+
+    private class SelectorRunnable implements Runnable {
+        @Override
+        public void run() {
+            try {
+                while (isRunning) {
+                    List<SocketChannel> socketChannelList = sessionManager.getNewSocketChannelListAndClear();
+                    if (!socketChannelList.isEmpty()) {
+                        for (SocketChannel channel: socketChannelList) {
+                            channel.register(selector, SelectionKey.OP_READ);
+                        }
+                    }
+                    int count = selector.select();
+                    if (count > 0) {
+                        Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                        Iterator<SelectionKey> iterator = selectionKeys.iterator();
+                        while (iterator.hasNext()) {
+                            SelectionKey selectionKey = iterator.next();
+                            SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
+                            // todo specify ByteBuffer size.
+                            ByteBuffer byteBuffer = ByteBuffer.allocate(24);
+                            // read byte from channel into buffer.
+                            socketChannel.read(byteBuffer);
+                            // todo 处理拆包，粘包问题
+                        }
+                    }
+                }
+            } catch (IOException e) {
+                // todo log
+            }
+        }
     }
 }
