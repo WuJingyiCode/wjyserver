@@ -3,8 +3,9 @@ package com.yi.server.wjyserver;
 import com.yi.server.wjyserver.command.*;
 import com.yi.server.wjyserver.extension.ExtensionManager;
 import com.yi.server.wjyserver.logger.WJYServerLogger;
-
-import java.util.concurrent.atomic.AtomicBoolean;
+import com.yi.server.wjyserver.network.SessionManager;
+import com.yi.server.wjyserver.network.TCPChannelAcceptor;
+import com.yi.server.wjyserver.network.TCPChannelSelector;
 
 /**
  * @author wujingyi
@@ -16,6 +17,8 @@ public class WJYServer {
     private WJYServerConfig serverConfig;
     private ExtensionManager extensionManager;
     private SessionManager sessionManager;
+    private TCPChannelAcceptor channelAcceptor;
+    private TCPChannelSelector channelSelector;
 
     public WJYServer() {
         this.wjyServerLogger = new WJYServerLogger();
@@ -24,9 +27,11 @@ public class WJYServer {
         this.serverConfig = new WJYServerConfig();
         this.extensionManager = new ExtensionManager(this);
         this.sessionManager = new SessionManager(this);
+        this.channelAcceptor = new TCPChannelAcceptor(this);
+        this.channelSelector = new TCPChannelSelector(this);
     }
 
-    public void start() throws Throwable {
+    public void start() {
         ListCommand listCommand = new ListCommand();
         listCommand.addCommand(wjyServerLogger);
         listCommand.addCommand(logoCommand);
@@ -34,7 +39,14 @@ public class WJYServer {
         listCommand.addCommand(serverConfig);
         listCommand.addCommand(extensionManager);
         listCommand.addCommand(sessionManager);
-        listCommand.execute();
+        listCommand.addCommand(channelAcceptor);
+        listCommand.addCommand(channelSelector);
+        try {
+            listCommand.execute();
+        } catch (Throwable t) {
+            WJYServerLogger.LOGGER.error("<WJYServer> start fail! ", t);
+            listCommand.rollback();
+        }
     }
 
     public WJYServerConfig getServerConfig() {

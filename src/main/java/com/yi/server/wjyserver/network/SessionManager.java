@@ -1,6 +1,7 @@
-package com.yi.server.wjyserver.command;
+package com.yi.server.wjyserver.network;
 
 import com.yi.server.wjyserver.WJYServer;
+import com.yi.server.wjyserver.command.Command;
 
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;

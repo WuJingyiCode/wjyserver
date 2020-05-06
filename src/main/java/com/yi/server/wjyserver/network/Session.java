@@ -1,4 +1,4 @@
-package com.yi.server.wjyserver.command;
+package com.yi.server.wjyserver.network;
 
 import java.nio.channels.SocketChannel;
 

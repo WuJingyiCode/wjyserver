@@ -33,7 +33,7 @@ public class ListCommandTest {
     }
 
     @Test
-    public void testConfigCommand() {
+    public void testConfigCommand() throws Throwable {
         init();
         ListCommand listCommand = new ListCommand();
         WJYServerConfig config = new WJYServerConfig();

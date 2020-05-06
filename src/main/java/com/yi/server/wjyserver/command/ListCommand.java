@@ -32,9 +32,11 @@ public class ListCommand extends Command {
     }
 
     @Override
-    protected void executeOnce() {
+    protected void executeOnce() throws Throwable {
         List<Command> commandList = this.commandList;
-        commandList.forEach(Command::execute);
+        for (Command command : commandList) {
+            command.execute();
+        }
     }
 
     @Override
